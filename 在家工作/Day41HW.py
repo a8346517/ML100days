@@ -58,13 +58,3 @@ ranking = selector.ranking_
 print(ranking)
 rfe_feature = x.loc[:,selector.support_].columns.tolist()
 print("與生存率有關聯的2個關鍵是:",rfe_feature)
-# from sklearn.feature_selection import SelectKBest
-# from sklearn.feature_selection import f_regression
-# from sklearn.feature_selection import SelectPercentile
-# from sklearn.feature_selection import chi2
-# x_new = SelectPercentile(chi2,percentile=30).fit_transform(x,y)
-# x_new.shape
-# print(x_new)
-# print("-------------------------------------")
-# x_new1 = SelectKBest(chi2,k=2).fit_transform(x,y)
-# print(x_new1)
