@@ -43,18 +43,16 @@ print(y.head(5))
 # Q1: 目標變數為 Survived，試著用今天教授的包裝法，搭配課程所教的 SVC，試著排出其餘特徵的重要性!
 sex = {'male':1,'female':0}
 complete_data['Sex1'] = complete_data['Sex'].map(sex)
-embarked = pd.get_dummies(complete_data[["Embarked"]])
-print(embarked)
-complete_data = pd.concat([complete_data,embarked],axis=1)
-print(complete_data)
-x=complete_data[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare','Sex1', 'Embarked_C','Embarked_Q','Embarked_S']]
+complete_data['Embarked'] = complete_data['Embarked'].astype('category').cat.codes
+print(complete_data['Embarked'])
+x=complete_data[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare','Sex1', 'Embarked']]
 y=complete_data['Survived']
 print(x.head(5))
 estimator = SVC(kernel='linear')
-selector = RFE(estimator,n_features_to_select = 2, step=1)
+selector = RFE(estimator,n_features_to_select = 1, step=1)
 selector = selector.fit(x,y)
 print(selector.support_)
 ranking = selector.ranking_
 print(ranking)
 rfe_feature = x.loc[:,selector.support_].columns.tolist()
-print("與生存率有關聯的2個關鍵是:",rfe_feature)
+print("與生存率有關聯的關鍵是:",rfe_feature)
